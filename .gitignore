@@ -1,4 +1,5 @@
 node_modules
+coverage
 *.sort
 received_event_stream.log
 npm-debug.log

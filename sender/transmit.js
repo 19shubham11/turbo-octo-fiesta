@@ -63,7 +63,11 @@ having a few extra headers for checksum. Infact deflate uses 12 bytes less per r
 (which is probably the header for gzip);
  */
 function compressInput(data) {
-  return zlib.gzipSync(data, { level: zlib.Z_BEST_SPEED });
+  if (typeof(data) === 'object'){
+    throw new Error( `Input should only be string or a buffer`);
+  } else {
+    return zlib.gzipSync(data, { level: zlib.Z_BEST_SPEED });
+  }
 }
 
 module.exports = {
