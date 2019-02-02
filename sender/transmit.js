@@ -25,7 +25,7 @@ compression and decompression will be expensive and we will lose out on latency.
 */
 
 
-module.exports = async function (eventMsg, encoding, callback) {
+async function transmtiData (eventMsg, encoding, callback) {
   const inp = JSON.stringify(eventMsg);
   queue.push(inp);
   callback();
@@ -64,4 +64,10 @@ having a few extra headers for checksum. Infact deflate uses 12 bytes less per r
  */
 function compressInput(data) {
   return zlib.gzipSync(data, { level: zlib.Z_BEST_SPEED });
+}
+
+module.exports = {
+  transmtiData,
+  compressInput,
+  flattenInput
 }

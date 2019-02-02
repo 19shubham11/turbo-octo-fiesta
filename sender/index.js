@@ -7,7 +7,7 @@
 const Transform = require('stream').Transform
 const PassThrough = require('stream').PassThrough
 
-const transmit = require('./transmit')
+const transmit = require('./transmit').transmtiData;
 
 const parseAndDelay = new Transform({
   objectMode: true,

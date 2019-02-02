@@ -5,22 +5,11 @@
 */
 
 const http = require('http')
-const zlib = require('zlib');
-
-const END_OF_MESSAGE = '/m/';
+const helpers = require('./helpers');
 
 process.on('SIGTERM', function () {
   process.exit(0)
 })
-
-function unzip(buffer) {
-  return zlib.gunzipSync(buffer).toString();
-}
-
-function logDataAccordingToInput(data) {
-  const inp_arr = data.split(END_OF_MESSAGE);
-  inp_arr.forEach(inp => console.log(inp));
-}
 
 const server = http.createServer(async function (req, res) {
   let body = []
@@ -28,8 +17,8 @@ const server = http.createServer(async function (req, res) {
   req.on('end', () => {
     // console.log('bytes received', req.socket.bytesRead)
     // just print to stdout
-    const unzippedData = unzip(Buffer.concat(body));
-    logDataAccordingToInput(unzippedData);
+    const unzippedData = helpers.unzip(Buffer.concat(body));
+    helpers.logDataAccordingToInput(unzippedData);
     res.end();
   })
 })
