@@ -6,7 +6,7 @@ const testData = require('../test-data/data');
 
 
 describe(`unzip`, () => {
-    it(`Should return unziped content which is same as the input`, () => {
+    it(`Should return unziped content which is same as the original input`, () => {
         const input = JSON.stringify(testData.event);
         const zip = sender.compressInput(input);
 
@@ -20,15 +20,15 @@ describe(`unzip`, () => {
 describe(`logDataAccordingToInput`, () => {
     it(`Logs output in expected format`, () => {
         let output = '';
-        const flatLog = input => (output+=input);
+        const flatLog = input => (output += input);
 
         //mocking console
         console.log = jest.fn(flatLog);
         const input = sender.flattenInput(testData.queue);
         helpers.logDataAccordingToInput(input);
-        
+
         let expectedOutput = '';
-        testData.queue.forEach(data => expectedOutput+=data);
+        testData.queue.forEach(data => expectedOutput += data);
 
         expect(output).to.be.eql(expectedOutput);
     })
